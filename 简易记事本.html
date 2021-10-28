@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>简易记事本</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            padding: 20px;
+            background-color: #aeaeae;
+        }
+        li{
+            list-style: none;
+        }
+        #notebook{
+            width: 100%;
+            max-width: 600px;
+            padding: 10px;
+            box-sizing: border-box;
+            box-shadow: 10px 10px 10px #333;
+            border-radius: 10px;
+            margin: 0 auto;
+            background-color: #eee;
+            text-align: center;
+        }
+        header h1{
+            padding: 30px 0;
+        }
+        header .inputnote{
+            width: 100%;
+            height: 48px;
+            padding: 0 10px;
+            box-sizing: border-box;
+            border: 0;
+            outline: none;
+        }
+        section .list{
+            background-color: #fff;
+            align-items: center;
+            border-top: 2px solid #eee;
+            padding: 10px;
+            display: flex;
+        }
+        section .list .num{
+            color: #888;
+            width: 20px;
+        }
+        section .list .text{
+            flex: 1;
+            font-size: 24px;
+            padding: 0 18px;
+            text-align: left;
+        }
+        section .list img{
+            width: 10px;
+        }
+        footer{
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        footer p{
+            font-size: 12px;
+            color: #888;
+        }
+        footer p span{
+            font-size: 16px;
+            color: #333;
+        }
+        footer img{
+            width: 26px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="notebook">
+        <header>
+            <h1>简易记事本</h1>
+            <input class="inputnote" type="text" placeholder="输入笔记，回车保存" v-model="inputValue" @keyup.enter="addNote">
+        </header>
+        <section>
+            <ul>
+                <li class="list" v-for="(item,index) in list">
+                    <span class="num">{{index+1+"."}}</span>
+                    <span class="text">{{item}}</span>
+                    <img src="https://pic.imgdb.cn/item/617a517e2ab3f51d91d56f25.png" alt="" @click="remove(index)">
+                </li>
+            </ul>
+        </section>
+        <footer>
+            <p>
+                共 <span>{{list.length}}</span> 条记录
+            </p>
+            <img src="https://pic.imgdb.cn/item/617a51692ab3f51d91d55d9f.png" alt="" @click="clear">
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script>
+        var notebook = new Vue({
+            el: "#notebook",
+            data: {
+                inputValue:"",
+                list: ["好好学习"],
+                num:1
+            },
+            methods: {
+                addNote: function () {
+                    this.list.push(this.inputValue);
+                    this.inputValue = ""
+                },
+                remove:function(p1){
+                    this.list.splice(p1,1)
+                },
+                clear:function(){
+                    this.list = []
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
